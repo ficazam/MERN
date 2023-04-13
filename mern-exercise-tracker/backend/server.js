@@ -3,6 +3,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 require("dotenv").config({ path: './backend/.env' })
 
+//adds routes
 const exercisesRouter = require('./routes/exercises')
 const usersRouter = require('./routes/users')
 
