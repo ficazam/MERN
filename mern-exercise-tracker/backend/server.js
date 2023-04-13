@@ -3,6 +3,9 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 require("dotenv").config({ path: './backend/.env' })
 
+const exercisesRouter = require('./routes/exercises')
+const usersRouter = require('./routes/users')
+
 const app = express()
 const port = process.env.PORT || 5000
 
@@ -17,6 +20,9 @@ mongoose.connect(uri, { useNewUrlParser: true })
 connection.once('open', () => {
     console.log('MongoDB Database Connection established successfully');
 })
+
+app.use('/exercises', exercisesRouter)
+app.use('/users', usersRouter)
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
