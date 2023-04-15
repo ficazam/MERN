@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import { UserForm } from "../components";
 
 export const AddUser = () => {
   const [newUser, setNewUser] = useState({ username: '' });
 
-  const nav = useNavigate();
-
-  const AddUser = (e) => {
+  const AddUser = async (e) => {
     e.preventDefault();
-    console.log(newUser);
+
+    const result = await axios.post('http://localhost:5000/users/add', newUser)
+    
+    console.log(result.data)
     setNewUser({ username: '' });
-    //nav('/')
   };
 
   const handleUserChange = (e) =>
@@ -24,6 +24,7 @@ export const AddUser = () => {
       <UserForm
         onSubmit={AddUser}
         onChangeUser={handleUserChange}
+        user={newUser.username}
       />
     </div>
   );

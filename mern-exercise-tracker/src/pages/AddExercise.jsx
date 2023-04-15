@@ -2,27 +2,36 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { ExerciseForm } from "../components";
+import axios from "axios";
 
 export const AddExercise = () => {
   const [newExercise, setNewExercise] = useState({
     username: "",
     description: "",
     duration: "",
-    date: new Date(),
+    date: "",
   });
 
   const nav = useNavigate();
 
-  const AddExercise = (e) => {
+  const AddExercise = async (e) => {
     e.preventDefault();
-    console.log(newExercise);
+
+    newExercise.date = new Date(newExercise.date);
+
+    const result = await axios.post(
+      "http://localhost:5000/exercises/add",
+      newExercise
+    );
+    console.log(result.data);
+
     setNewExercise({
       username: "",
       description: "",
       duration: "",
       date: "",
     });
-    //nav('/')
+    nav("/");
   };
 
   const handleUserChange = (e) =>
@@ -34,8 +43,9 @@ export const AddExercise = () => {
   const handleDurationChange = (e) =>
     setNewExercise({ ...newExercise, duration: e.target.value });
 
-  const handleDateChange = (e) =>
-    setNewExercise({ ...newExercise, date: e.target.value });
+  const handleDateChange = (e) => {
+    setNewExercise({ ...newExercise, date: parseInt(e) });
+  };
 
   return (
     <div className="mx-5 px-5">

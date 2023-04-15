@@ -1,8 +1,6 @@
 import React from "react";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const users = ["", "papitas", "fritas", "de", "mcd"];
 
 export const UserForm = (props) => {
   return (
